@@ -76,7 +76,7 @@ def match_tests(match):
 def match_history_tests(summoner):
     wait()
     ms = w.get_match_history(summoner['id'])
-    return ms['matches'][0]
+    return ms['matches'][9]
 
 
 def stats_tests(summoner):
@@ -94,10 +94,10 @@ def summoner_tests(summoner_name):
     wait()
     w.get_mastery_pages([s['id'], ])
     wait()
-    d = w.get_rune_pages([s['id'], ])
+    w.get_rune_pages([s['id'], ])
     wait()
     w.get_summoner_name([s['id'], ])
-    return d
+    return s
 
 
 def team_tests(summoner):
@@ -108,8 +108,11 @@ def team_tests(summoner):
 
 
 def main():
-	test = summoner_tests(summoner_name)
-	print(test)
+	# s = summoner_tests(summoner_name)
+    # m = match_history_tests(s)
+	# print(m)
+
+
 
     # static_tests()
     # print('static tests passed')
@@ -117,8 +120,8 @@ def main():
     # print('status tests passed')
     # champion_tests()
     # print('champion tests passed')
-    # s = summoner_tests(summoner_name)
-    # print('summoner tests passed')
+    s = summoner_tests(summoner_name)
+    print('summoner tests passed')
     # game_tests(s)
     # print('game tests passed')
     # league_tests(s)
@@ -127,11 +130,12 @@ def main():
     # print('stats tests passed')
     # team_tests(s)
     # print('team tests passed')
-    # m = match_history_tests(s)
-    # print('match history tests passed')
-    # match_tests(m)
-    # print('match passed')
-    # print('all tests passed, w00t. if only they were better tests...')
+    m = match_history_tests(s)
+    print (m)
+    print('match history tests passed')
+    match_tests(m)
+    print('match passed')
+    print('all tests passed, w00t. if only they were better tests...')
 
 
 if __name__ == '__main__':
