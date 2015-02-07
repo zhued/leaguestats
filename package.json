@@ -1,0 +1,20 @@
+{
+  "name": "league",
+  "version": "0.0.1",
+  "description": "league",
+  "main": "server/server.js",
+  "author": "Alex Campbell, Edward Zhu, Josh Fermin",
+  "License": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+
+  "dependencies": {
+    "hapi": "^6.5.1"
+  },
+  "scripts": {
+    "start": "nodemon server/server.js"
+  }
+
+}
