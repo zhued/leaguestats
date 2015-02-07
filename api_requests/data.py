@@ -1,5 +1,6 @@
 import time
 import sys
+import json
 from pulldata import RiotWatcher, NORTH_AMERICA
 
 # make file called .riotkey and store api key there on first line
@@ -19,20 +20,28 @@ summoner_name = sys.argv[1]
 
 w = RiotWatcher(key)
 
-
+#Utilities
 def wait():
     while not w.can_make_request():
         time.sleep(1)
 
-def get_id(summoner_name):
+def to_json(dict):
+  return json.dumps(dict,separators=(',', ': '))
+
+#Data functions
+def get_summoner(summoner_name):
     wait()
     s = w.get_summoner(name=summoner_name)
+
     return s
 
+
+#MAIN
 def main():
-  if sys.argv[2] == 'get_id':
-    data = get_id(summoner_name)
-    print(data['id'])
+  arg = sys.argv[2]
+  if arg == 'get_summoner':
+    data = get_summoner(summoner_name)
+    print(to_json(data))
 
 
 

@@ -9,14 +9,22 @@ if(!module.parent){ //prevent server from starting when testing
   console.log('Server Started On localhost:8000');
 }
 
+
+function get_data(name,request, callback){  
+  exec("python ../api_requests/data.py "+name+" " + request , function(err,stdout,stderr){
+    data = JSON.parse(stdout);
+    callback(data);
+  });  
+}
+
+
 server.route({
   method: 'GET',
   path:   '/{name}/id', 
   handler: function(req,res){
     var name = encodeURIComponent(req.params.name);
-    exec("python ../api_requests/data.py "+name+" get_id" , function(err,stdout,stderr){
-      res(stdout);
-      
-    });
+    get_data(name,'get_summoner', function(data){
+      res(data.id);
+    })
   }
-    });
+});
