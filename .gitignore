@@ -1,1 +1,3 @@
 .riotkey
+node_modules
+*.pyc
