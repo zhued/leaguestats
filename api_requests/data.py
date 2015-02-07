@@ -32,7 +32,6 @@ def to_json(dict):
 def get_summoner(summoner_name):
     wait()
     s = w.get_summoner(name=summoner_name)
-
     return s
 
 

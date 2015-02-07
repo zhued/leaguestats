@@ -2,7 +2,7 @@
   "name": "league",
   "version": "0.0.1",
   "description": "league",
-  "main": "server.js",
+  "main": "server/server.js",
   "author": "Alex Campbell, Edward Zhu, Josh Fermin",
   "License": "MIT",
   "repository": {
