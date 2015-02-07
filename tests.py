@@ -1,13 +1,23 @@
 # these tests are pretty bad, mostly to make sure no exceptions are thrown
 
 import time
+import sys
 from pulldata import RiotWatcher, NORTH_AMERICA
 
-key = '<PUT KEY HERE>'
+# make file called .riotkey and store api key there on first line
+with open('.riotkey') as f:
+    content = f.readlines()
+
+if len(sys.argv) < 2:
+    print 'Please give a summoner name as argument!'
+    exit()
+
+
+key = content[0]
 # if summoner doesnt have ranked teams, teams tests will fail
 # if summoner doesnt have ranked stats, stats tests will fail
 # these are not graceful failures, so try to use a summoner that has them
-summoner_name = 'somepanda'
+summoner_name = sys.argv[1]
 
 w = RiotWatcher(key)
 
@@ -84,10 +94,10 @@ def summoner_tests(summoner_name):
     wait()
     w.get_mastery_pages([s['id'], ])
     wait()
-    w.get_rune_pages([s['id'], ])
+    d = w.get_rune_pages([s['id'], ])
     wait()
     w.get_summoner_name([s['id'], ])
-    return s
+    return d
 
 
 def team_tests(summoner):
@@ -98,8 +108,9 @@ def team_tests(summoner):
 
 
 def main():
-	test = w.get_summoner(name=summoner_name)
+	test = summoner_tests(summoner_name)
 	print(test)
+
     # static_tests()
     # print('static tests passed')
     # status_tests()
