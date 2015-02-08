@@ -76,7 +76,7 @@ def match_tests(match):
 def match_history_tests(summoner):
     wait()
     ms = w.get_match_history(summoner['id'])
-    return ms['matches'][9]
+    return ms['matches'][1]
 
 
 def stats_tests(summoner):

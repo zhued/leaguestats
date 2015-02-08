@@ -36,13 +36,22 @@ def get_summoner(summoner_name):
     s = w.get_summoner(name=summoner_name)
     return s
 
+def get_match_history(summoner):
+    wait()
+    ms = w.get_match_history(summoner['id'])
+    return ms['matches']
+
 
 #MAIN
 def main():
   arg = sys.argv[2]
   if arg == 'get_summoner':
-    data = get_summoner(summoner_name)
-    print(to_json(data))
+    summoner = get_summoner(summoner_name)
+    print(to_json(summoner))
+  elif arg == 'get_match_history':
+    summoner = get_summoner(summoner_name)
+    matchHistory = get_match_history(summoner)
+    print(to_json(matchHistory))
 
 
 
