@@ -28,3 +28,14 @@ server.route({
     })
   }
 });
+
+server.route({
+  method: 'GET',
+  path:   '/{name}/matchhistory', 
+  handler: function(req,res){
+    var name = encodeURIComponent(req.params.name);
+    get_data(name,'get_match_history', function(data){
+      res(data);
+    })
+  }
+});
