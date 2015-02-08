@@ -2,6 +2,7 @@ import time
 import sys
 import json
 import itertools
+
 from pulldata import RiotWatcher, NORTH_AMERICA
 
 # make file called .riotkey and store api key there on first line
@@ -89,6 +90,30 @@ def get_average_xp_per_minute_deltas(summoner):
   return average
 
 
+def get_average_kda_per_game(summoner):
+  wait()
+  matches = w.get_match_history(summoner['id'])
+  match_info = matches['matches']
+  total = 0
+  for i in xrange(0,len(match_info)):
+    participantDict = match_info[i]['participants'][0]
+    kaPerGame = (participantDict['stats']['kills'] + participantDict['stats']['assists'])
+    if participantDict['stats']['kills'] == 0:
+      dPerGame = 1.0
+    else:
+      dPerGame = participantDict['stats']['deaths']
+    kdaPerGame = float(kaPerGame)/float(dPerGame)
+    total += kdaPerGame
+  average = total/len(match_info)
+  return average
+
+# def last_death(summoner):
+#   wait()
+
+
+
+
+
 '''
 MAIN
 '''
@@ -113,6 +138,14 @@ def main():
     summoner = get_summoner(summoner_name)
     average = get_average_xp_per_minute_deltas(summoner)
     print average
+  elif arg == 'get_average_kda_per_game':
+    summoner = get_summoner(summoner_name)
+    average = get_average_kda_per_game(summoner)
+    print average
+
+  # elif arg == 'last_death':
+  #   summoner = get_summoner(summoner_name)
+  #   print average
 
 
 
