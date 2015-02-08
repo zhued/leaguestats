@@ -60,6 +60,7 @@ def get_average_creep_per_minute_deltas(summoner):
   average = sum(mergedTotal)/len(mergedTotal)
   return average
 
+# get average gold per minute
 def get_average_gold_per_minute_deltas(summoner):
   wait()
   matches = w.get_match_history(summoner['id'])
@@ -73,6 +74,7 @@ def get_average_gold_per_minute_deltas(summoner):
   average = sum(mergedTotal)/len(mergedTotal)
   return average
 
+# get average xp per min
 def get_average_xp_per_minute_deltas(summoner):
   wait()
   matches = w.get_match_history(summoner['id'])
