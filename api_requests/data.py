@@ -98,7 +98,7 @@ def get_average_kda_per_game(summoner):
   for i in xrange(0,len(match_info)):
     participantDict = match_info[i]['participants'][0]
     kaPerGame = (participantDict['stats']['kills'] + participantDict['stats']['assists'])
-    if participantDict['stats']['kills'] == 0:
+    if participantDict['stats']['deaths'] == 0:
       dPerGame = 1.0
     else:
       dPerGame = participantDict['stats']['deaths']
@@ -106,9 +106,6 @@ def get_average_kda_per_game(summoner):
     total += kdaPerGame
   average = total/len(match_info)
   return average
-
-# def last_death(summoner):
-#   wait()
 
 
 
@@ -142,10 +139,6 @@ def main():
     summoner = get_summoner(summoner_name)
     average = get_average_kda_per_game(summoner)
     print average
-
-  # elif arg == 'last_death':
-  #   summoner = get_summoner(summoner_name)
-  #   print average
 
 
 
