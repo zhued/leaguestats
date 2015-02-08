@@ -1,6 +1,7 @@
 import time
 import sys
 import json
+import itertools
 from pulldata import RiotWatcher, NORTH_AMERICA
 
 # make file called .riotkey and store api key there on first line
@@ -32,14 +33,30 @@ def to_json(dict):
 
 #Data functions
 def get_summoner(summoner_name):
-    wait()
-    s = w.get_summoner(name=summoner_name)
-    return s
+  wait()
+  s = w.get_summoner(name=summoner_name)
+  return s
 
 def get_match_history(summoner):
-    wait()
-    ms = w.get_match_history(summoner['id'])
-    return ms['matches']
+  wait()
+  ms = w.get_match_history(summoner['id'])
+  return ms['matches']
+
+def get_average_creep_per_minute_deltas(summoner):
+  wait()
+  matches = w.get_match_history(summoner['id'])
+  match_info = matches['matches']
+  # participantDict = match_info[1]['participants'][0]
+  # participantDict['timeline']['creepsPerMinDeltas']
+  total = []
+  for i in xrange(0,len(match_info)):
+    participantDict = match_info[i]['participants'][0]
+    creepsPerMinDeltas = participantDict['timeline']['creepsPerMinDeltas']
+    # average = reduce(lambda x, y: dict((k, v + y[k]) for k, v in x.iteritems()), creepsPerMinDeltas)
+    total.append(creepsPerMinDeltas.values())
+  mergedTotal = list(itertools.chain(*total))
+  average = sum(mergedTotal)/len(mergedTotal)
+  return average
 
 
 #MAIN
@@ -52,6 +69,11 @@ def main():
     summoner = get_summoner(summoner_name)
     matchHistory = get_match_history(summoner)
     print(to_json(matchHistory))
+  elif arg == 'get_average_creep_per_minute_deltas':
+    summoner = get_summoner(summoner_name)
+    average = get_average_creep_per_minute_deltas(summoner)
+    print average
+
 
 
 
