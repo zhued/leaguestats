@@ -46,7 +46,7 @@ def get_match_history(summoner):
   ms = w.get_match_history(summoner['id'])
   return ms['matches']
 
-# gets the average creeps per 10 minutes for the past 9 games
+# gets the average creeps per minute for the past 9 games
 def get_average_creep_per_minute_deltas(summoner):
   wait()
   matches = w.get_match_history(summoner['id'])
