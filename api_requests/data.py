@@ -22,7 +22,9 @@ summoner_name = sys.argv[1]
 w = RiotWatcher(key)
 
 
-#Utilities
+'''
+Utility Functions
+'''
 def wait():
     while not w.can_make_request():
         time.sleep(1)
@@ -31,7 +33,9 @@ def wait():
 def to_json(dict):
   return json.dumps(dict,separators=(',', ': '))
 
-#Data functions
+'''
+Data functions
+'''
 def get_summoner(summoner_name):
   wait()
   s = w.get_summoner(name=summoner_name)
@@ -42,24 +46,50 @@ def get_match_history(summoner):
   ms = w.get_match_history(summoner['id'])
   return ms['matches']
 
+# gets the average creeps per 10 minutes for the past 9 games
 def get_average_creep_per_minute_deltas(summoner):
   wait()
   matches = w.get_match_history(summoner['id'])
   match_info = matches['matches']
-  # participantDict = match_info[1]['participants'][0]
-  # participantDict['timeline']['creepsPerMinDeltas']
   total = []
   for i in xrange(0,len(match_info)):
     participantDict = match_info[i]['participants'][0]
     creepsPerMinDeltas = participantDict['timeline']['creepsPerMinDeltas']
-    # average = reduce(lambda x, y: dict((k, v + y[k]) for k, v in x.iteritems()), creepsPerMinDeltas)
     total.append(creepsPerMinDeltas.values())
   mergedTotal = list(itertools.chain(*total))
   average = sum(mergedTotal)/len(mergedTotal)
   return average
 
+def get_average_gold_per_minute_deltas(summoner):
+  wait()
+  matches = w.get_match_history(summoner['id'])
+  match_info = matches['matches']
+  total = []
+  for i in xrange(0,len(match_info)):
+    participantDict = match_info[i]['participants'][0]
+    goldPerMinDeltas = participantDict['timeline']['goldPerMinDeltas']
+    total.append(goldPerMinDeltas.values())
+  mergedTotal = list(itertools.chain(*total))
+  average = sum(mergedTotal)/len(mergedTotal)
+  return average
 
-#MAIN
+def get_average_xp_per_minute_deltas(summoner):
+  wait()
+  matches = w.get_match_history(summoner['id'])
+  match_info = matches['matches']
+  total = []
+  for i in xrange(0,len(match_info)):
+    participantDict = match_info[i]['participants'][0]
+    xpPerMinDeltas = participantDict['timeline']['xpPerMinDeltas']
+    total.append(xpPerMinDeltas.values())
+  mergedTotal = list(itertools.chain(*total))
+  average = sum(mergedTotal)/len(mergedTotal)
+  return average
+
+
+'''
+MAIN
+'''
 def main():
   arg = sys.argv[2]
   if arg == 'get_summoner':
@@ -73,7 +103,14 @@ def main():
     summoner = get_summoner(summoner_name)
     average = get_average_creep_per_minute_deltas(summoner)
     print average
-
+  elif arg == 'get_average_gold_per_minute_deltas':
+    summoner = get_summoner(summoner_name)
+    average = get_average_gold_per_minute_deltas(summoner)
+    print average
+  elif arg == 'get_average_xp_per_minute_deltas':
+    summoner = get_summoner(summoner_name)
+    average = get_average_xp_per_minute_deltas(summoner)
+    print average
 
 
 
