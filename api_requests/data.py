@@ -142,9 +142,9 @@ def get_average_stats(summoner):
   goldTotal = list(itertools.chain(*goldTotal))
   xpTotal = list(itertools.chain(*xpTotal))
 
-  creepAverage = sum(creepTotal)/length
-  goldAverage = sum(goldTotal)/length
-  xpAverage = sum(xpTotal)/length
+  creepAverage = sum(creepTotal)/len(creepTotal)
+  goldAverage = sum(goldTotal)/len(goldTotal)
+  xpAverage = sum(xpTotal)/len(xpTotal)
   kdaAverage = kdaTotal/length
 
   jsonDict = {}
