@@ -108,6 +108,52 @@ def get_average_kda_per_game(summoner):
   return average
 
 
+def get_average_stats(summoner):
+  wait()
+  matches = w.get_match_history(summoner['id'])
+  match_info = matches['matches']
+
+  length = len(match_info)
+
+  creepTotal = []
+  goldTotal = []
+  xpTotal = []
+  kdaTotal = 0
+  for i in xrange(0,len(match_info)):
+    participantDict = match_info[i]['participants'][0]
+    creepsPerMinDeltas = participantDict['timeline']['creepsPerMinDeltas']
+    goldPerMinDeltas = participantDict['timeline']['goldPerMinDeltas']
+    xpPerMinDeltas = participantDict['timeline']['xpPerMinDeltas']
+    
+    kaPerGame = (participantDict['stats']['kills'] + participantDict['stats']['assists'])
+    if participantDict['stats']['deaths'] == 0:
+      dPerGame = 1.0
+    else:
+      dPerGame = participantDict['stats']['deaths']
+    kdaPerGame = float(kaPerGame)/float(dPerGame)
+    kdaTotal += kdaPerGame
+
+
+    creepTotal.append(creepsPerMinDeltas.values())
+    goldTotal.append(goldPerMinDeltas.values())
+    xpTotal.append(xpPerMinDeltas.values())
+
+  creepTotal = list(itertools.chain(*creepTotal))
+  goldTotal = list(itertools.chain(*goldTotal))
+  xpTotal = list(itertools.chain(*xpTotal))
+
+  creepAverage = sum(creepTotal)/length
+  goldAverage = sum(goldTotal)/length
+  xpAverage = sum(xpTotal)/length
+  kdaAverage = kdaTotal/length
+
+  jsonDict = {}
+  jsonDict["creepAverage"] = creepAverage
+  jsonDict["goldAverage"] = goldAverage
+  jsonDict["xpAverage"] = xpAverage
+  jsonDict["kdaAverage"] = kdaAverage
+
+  return jsonDict
 
 
 
@@ -139,6 +185,10 @@ def main():
     summoner = get_summoner(summoner_name)
     average = get_average_kda_per_game(summoner)
     print average
+  elif arg == 'get_average_stats':
+    summoner = get_summoner(summoner_name)
+    averages = get_average_stats(summoner)
+    print averages
 
 
 
