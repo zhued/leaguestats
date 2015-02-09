@@ -39,3 +39,14 @@ server.route({
     })
   }
 });
+
+server.route({
+  method: 'GET',
+  path:   '/{name}/average_stats', 
+  handler: function(req,res){
+    var name = encodeURIComponent(req.params.name);
+    get_data(name,'get_average_stats', function(data){
+      res(data);
+    })
+  }
+});
