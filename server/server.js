@@ -9,7 +9,12 @@ if(!module.parent){ //prevent server from starting when testing
   console.log('Server Started On localhost:8000');
 }
 
-
+server.views({
+    engines: {
+        html: require('handlebars')
+    },
+    path: __dirname+'/public/views'
+});
 
 function get_data(name,request, callback){  
   exec("python ../api_requests/data.py "+name+" " + request , function(err,stdout,stderr){
@@ -46,7 +51,8 @@ server.route({
   handler: function(req,res){
     var name = encodeURIComponent(req.params.name);
     get_data(name,'get_average_stats', function(data){
-      res(data);
+      // res(data);
+      res.view('index', {avg:data});
     })
   }
 });

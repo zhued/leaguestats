@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello React</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+ 
+    <script type="text/jsx">
+      var Averages = React.createClass({
+      render: function() {
+          return (
+            <div className="data">
+              Average Creeps/min: {{avg.creepAverage}}
+              <p></p>
+              Average Xp/min: {{avg.xpAverage}}
+              <p></p>
+              Average gold/min: {{avg.goldAverage}}
+              <p></p>
+              Average KDA: {{avg.kdaAverage}}
+            </div>
+          );
+        }
+      });
+
+
+      React.render(
+        <Averages />,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>

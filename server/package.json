@@ -11,7 +11,8 @@
   },
 
   "dependencies": {
-    "hapi": "^6.5.1"
+    "hapi": "^6.5.1",
+    "handlebars": "^2.0.0"
   },
   "scripts": {
     "start": "nodemon server.js"
