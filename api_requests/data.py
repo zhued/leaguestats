@@ -188,7 +188,7 @@ def main():
   elif arg == 'get_average_stats':
     summoner = get_summoner(summoner_name)
     averages = get_average_stats(summoner)
-    print averages
+    print (to_json(averages))
 
 
 
