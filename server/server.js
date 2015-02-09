@@ -9,6 +9,12 @@ if(!module.parent){ //prevent server from starting when testing
   console.log('Server Started On localhost:8000');
 }
 
+server.views({
+    engines: {
+        html: require('handlebars')
+    },
+    path: __dirname+'/views/layout'
+});
 
 
 function get_data(name,request, callback){  
@@ -18,13 +24,14 @@ function get_data(name,request, callback){
   });  
 }
 
+
 server.route({
   method: 'GET',
   path:   '/{name}/id', 
   handler: function(req,res){
     var name = encodeURIComponent(req.params.name);
     get_data(name,'get_summoner', function(data){
-      res(data.id);
+      res(data);
     })
   }
 });
@@ -46,7 +53,7 @@ server.route({
   handler: function(req,res){
     var name = encodeURIComponent(req.params.name);
     get_data(name,'get_average_stats', function(data){
-      res(data);
+      res.view('index', {avg:data});
     })
   }
 });
