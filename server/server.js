@@ -31,7 +31,7 @@ server.route({
   handler: function(req,res){
     var name = encodeURIComponent(req.params.name);
     get_data(name,'get_summoner', function(data){
-      res(data);
+      res(data.id);
     })
   }
 });
