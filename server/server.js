@@ -1,13 +1,36 @@
 var Hapi = require('hapi');
 var exec = require('child_process').exec;
 var fs   = require('fs');
+var path = require('path');
+var bodyParser = require('body-parser');
 
-var server = new Hapi.Server('0.0.0.0', '8000');
+// ***
+// Create hapi server on port 8000
+// ***
+var server = new Hapi.Server('localhost', '8000');
 
 if(!module.parent){ //prevent server from starting when testing
-  server.start();
-  console.log('Server Started On localhost:8000');
+  server.start(function () {
+    console.log('Server running at:', server.info.uri);
+  });
 }
+
+// ***
+// Static page handler for react.js located in public folder.
+// ***
+server.route({
+    method: 'GET',
+    path: '/{param*}',
+    handler: {
+        directory: {
+            path: 'public',
+            listing: true
+        }
+    }
+});
+
+// server.use(bodyParser.json());
+// server.use(bodyParser.urlencoded({extended: true}));
 
 
 
@@ -50,3 +73,5 @@ server.route({
     })
   }
 });
+
+

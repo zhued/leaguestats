@@ -11,6 +11,7 @@
   },
 
   "dependencies": {
+    "body-parser": "^1.4.3",
     "hapi": "^6.5.1"
   },
   "scripts": {
