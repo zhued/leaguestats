@@ -18,6 +18,8 @@ key = content[0]
 # if summoner doesnt have ranked teams, teams tests will fail
 # if summoner doesnt have ranked stats, stats tests will fail
 # these are not graceful failures, so try to use a summoner that has them
+
+#summoner_name will also act as the champion/item id position
 summoner_name = sys.argv[1]
 
 w = RiotWatcher(key)
@@ -155,6 +157,15 @@ def get_average_stats(summoner):
 
   return jsonDict
 
+def get_static_all_champs():
+  wait()
+  ms = w.static_get_champion_list()
+  return ms
+
+def get_static_champ(champ_id):
+  wait()
+  ms = w.static_get_champion(champ_id)
+  return ms
 
 
 '''
@@ -189,6 +200,16 @@ def main():
     summoner = get_summoner(summoner_name)
     averages = get_average_stats(summoner)
     print (to_json(averages))
+# ************
+# Start of static data
+# ************
+  elif arg == 'get_static_all_champs':
+    champs = get_static_all_champs()
+    print (to_json(champs))
+  elif arg == 'get_static_champ':
+    champ_name = summoner_name
+    champ = get_static_champ(champ_name)
+    print (to_json(champ))
 
 
 
