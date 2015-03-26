@@ -325,7 +325,7 @@ class RiotWatcher:
             champData=champ_data
         )
 
-    def static_get_champion(self, champ_id, region=None, locale=None, version=None, champ_data=None):
+    def static_get_champion(self, champ_id, region=None, locale=None, version=None, champ_data='all'):
         return self._static_request(
             'champion/{id}'.format(id=champ_id),
             region,
