@@ -13,7 +13,7 @@ if(!module.parent){ //prevent server from starting when testing
 // SUMMONER DATA
 // **************
 function get_data(name,request, callback){  
-  exec("python ../api_requests/data.py "+name+" " + request , function(err,stdout,stderr){
+  exec("python api_requests/data.py "+name+" " + request , function(err,stdout,stderr){
     data = JSON.parse(stdout);
     callback(data);
   });  

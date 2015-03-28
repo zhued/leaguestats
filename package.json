@@ -11,10 +11,11 @@
   },
 
   "dependencies": {
+    "body-parser": "~1.10.2",
     "hapi": "^6.5.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server/server.js"
   }
 
 }
