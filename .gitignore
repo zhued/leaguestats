@@ -1,4 +1,6 @@
 .riotkey
+.env
 node_modules
 *.pyc
 *.log
+.DS_STORE

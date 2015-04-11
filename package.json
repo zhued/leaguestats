@@ -16,7 +16,7 @@
     "dotenv": "0.5.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server/server.js"
   }
 
 }
