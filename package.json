@@ -13,7 +13,8 @@
   "dependencies": {
     "hapi": "^6.5.1",
     "mongoose": "^3.8.23",
-    "dotenv": "0.5.1"
+    "dotenv": "0.5.1",
+    "hapi": "^6.5.1"
   },
   "scripts": {
     "start": "nodemon server/server.js"
