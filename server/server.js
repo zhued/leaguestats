@@ -30,6 +30,10 @@ server.route({
   }
 });
 
+
+// ***************
+// RANKED MATCHES
+// ***************
 server.route({
   method: 'GET',
   path:   '/{name}/matchhistory', 
@@ -52,6 +56,19 @@ server.route({
   }
 });
 
+// **************
+// All matches
+// **************
+server.route({
+  method: 'GET',
+  path:   '/{name}/recent_games', 
+  handler: function(req,res){
+    var name = encodeURIComponent(req.params.name);
+    get_data(name,'get_recent_games', function(data){
+      res(data);
+    })
+  }
+});
 
 
 

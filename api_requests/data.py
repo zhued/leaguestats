@@ -157,6 +157,26 @@ def get_average_stats(summoner):
 
   return jsonDict
 
+# ***********************
+#    times of recent games
+# ***********************
+def get_recent_games(summoner):
+  wait()
+  total = []
+  gamedata = w.get_recent_games(summoner['id'])
+  for i in xrange(0,len(gamedata['games'])):
+    gameEnd = gamedata['games'][i]['createDate']
+    timePlayed = gamedata['games'][i]['stats']['timePlayed']
+    formatJSON = '{gameEndtime: %s, timePlayed: %s}' % (gameEnd,timePlayed)
+    total.append(formatJSON)
+  
+  return total
+  # return gamedata
+
+
+# **********
+# STATIC DATA
+# ************
 def get_static_all_champs():
   wait()
   ms = w.static_get_champion_list()
@@ -200,6 +220,10 @@ def main():
     summoner = get_summoner(summoner_name)
     averages = get_average_stats(summoner)
     print (to_json(averages))
+  elif arg == 'get_recent_games':
+    summoner = get_summoner(summoner_name)
+    matchHistory = get_recent_games(summoner)
+    print(to_json(matchHistory))
 # ************
 # Start of static data
 # ************
