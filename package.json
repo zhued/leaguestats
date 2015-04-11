@@ -11,10 +11,12 @@
   },
 
   "dependencies": {
+    "dotenv": "~1.0.0",
+    "body-parser": "~1.10.2",
     "hapi": "^6.5.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server/server.js"
   }
 
 }
