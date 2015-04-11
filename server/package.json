@@ -11,7 +11,8 @@
   },
 
   "dependencies": {
-    "hapi": "^6.5.1"
+    "hapi": "^6.5.1",
+    "mongoose": "^3.8.23"
   },
   "scripts": {
     "start": "nodemon server.js"
