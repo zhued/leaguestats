@@ -5,8 +5,8 @@ mongoose.connect(process.env.DB_CONNECT);
 
 
 var Any = new mongoose.Schema({ any: mongoose.Schema.Types.Mixed },{ strict: false });
-function dataInit(){
-  return mongoose.model('Data', Any, 'db');
+function dataInit(db){
+  return mongoose.model('Data', Any, db);
 }
 
 

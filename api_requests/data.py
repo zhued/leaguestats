@@ -21,6 +21,11 @@ key = content[0]
 
 #summoner_name will also act as the champion/item id position
 summoner_name = sys.argv[1]
+# if sys.argv[2] == 'get_recent_games':
+#   iteration = int(sys.argv[3])
+#   if iteration > 9 :
+#     print 'Iteration must be between 0-9'
+#     exit()
 
 w = RiotWatcher(key)
 
@@ -165,13 +170,18 @@ def get_recent_games(summoner):
   total = []
   gamedata = w.get_recent_games(summoner['id'])
   for i in xrange(0,len(gamedata['games'])):
+    gameid = gamedata['games'][i]['gameId']
     gameEnd = gamedata['games'][i]['createDate']
     timePlayed = gamedata['games'][i]['stats']['timePlayed']
-    formatJSON = '{gameEndtime: %s, timePlayed: %s}' % (gameEnd,timePlayed)
-    total.append(formatJSON)
-  
+    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d }' % (gameid,gameEnd,timePlayed)
+    j = json.loads(formatJSON)
+    total.append(j)
+  # gameid = gamedata['games'][i]['gameId']
+  # gameEnd = gamedata['games'][i]['createDate']
+  # timePlayed = gamedata['games'][i]['stats']['timePlayed']
+  # format = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d }' % (gameid,gameEnd,timePlayed)
   return total
-  # return gamedata
+  # return format
 
 
 # **********
@@ -223,6 +233,7 @@ def main():
   elif arg == 'get_recent_games':
     summoner = get_summoner(summoner_name)
     matchHistory = get_recent_games(summoner)
+    # j = json.loads(matchHistory)
     print(to_json(matchHistory))
 # ************
 # Start of static data
