@@ -1,7 +1,6 @@
 var dotenv   = require('dotenv'), // used for keys -> get from .env
   fs        = require('fs'),
-  db     = require('./mongo.js'),
-  exec = require('child_process').exec;
+  db     = require('./mongo.js');
 
 var PythonShell = require('python-shell');
 
@@ -9,6 +8,9 @@ var arguments = process.argv.slice(2);
 
 // Keyword mass will run a mass update on all existing players in database
 if (arguments == "mass") {
+	// console.log(db.DB_collections());
+
+
 	setTimeout(function(){ console.log('Entry Finished.'); db.DB_close(); }, 500);
 } else { // Otherwise, just update the player given
 

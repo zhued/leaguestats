@@ -12,7 +12,8 @@
 
   "dependencies": {
     "hapi": "^6.5.1",
-    "mongoose": "^3.8.23",
+    "mongoose": "*3.8.23",
+    "mongodb": "*2.0.27",
     "dotenv": "0.5.1",
     "hapi": "^6.5.1",
     "python-shell": "0.0.3"
