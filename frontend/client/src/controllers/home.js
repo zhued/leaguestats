@@ -7,7 +7,7 @@ angular.module('app').controller('HomeController', [
     method: 'GET',
     url: '/ghostneedle'
    }).then(function(data){
-    $scope.sent = data.data;
+    $scope.time_played = data.data;
    });
   }
 ]);
