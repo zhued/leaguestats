@@ -23,26 +23,28 @@ mongoose.connection.on('open', function (ref) {
 		        	
 		        	arrayItem = arrayItem.name.substring(12)
 		        	if (!(arrayItem == "system.indexes" || arrayItem == "test" || arrayItem == "datas")) {
-		        		console.log(arrayItem)
+		        		// console.log(arrayItem)
 				        var options = {
 							  scriptPath: 'api_requests',
 							  args: [arrayItem, 'get_recent_games']
 						};
+						console.log(options.args)
 
 				        PythonShell.run('data.py', options, function (err, times) {
 							if (err) throw err;
 							
 							data = JSON.parse(times);
-							console.log(data)
+							// console.log(data)
 							for (var key in data) {
 							    var entry = data[key];
+							    // console.log(entry)
 							    Data.create(entry, function(err,doc){
-									if(err) throw err;
+									// if(err) throw err;
 									// not throwing error because data will overlap, which is fine
 								})
 							}
 							
-							// setTimeout(function(){ console.log(arrayItem +' Finished.'); db.DB_close(); }, 500);
+							setTimeout(function(){ console.log(arrayItem +' Finished.'); db.DB_close(); }, 500);
 						})
 		        	}
 				})
@@ -59,7 +61,7 @@ mongoose.connection.on('open', function (ref) {
 		  scriptPath: 'api_requests',
 		  args: [arguments[0], 'get_recent_games']
 		};
-		 
+		console.log(options)
 		PythonShell.run('data.py', options, function (err, times) {
 			if (err) throw err;
 			data = JSON.parse(times);
