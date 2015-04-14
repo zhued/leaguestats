@@ -16,7 +16,6 @@ if (arguments == "mass") {
 	    	if (err) {
 	    		throw err
 	    	} else {
-		        // console.log(names); // [{ name: 'dbname.myCollection' }]
 		        names.forEach(function(arrayItem){
 		        	arrayItem = arrayItem.name.substring(12)
 		        	// if (!(arrayItem == "system.indexes" || arrayItem == "test" || arrayItem == "datas")) {

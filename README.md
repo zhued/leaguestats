@@ -1,5 +1,12 @@
 # leaguestats
 
+## Where should I put my credentials?
+* Put your mongolabs credentials as ```DB_CONNECT=XXXX``` in a file named ```.env```
+	* Put this file both in the root of both the backend dir and the frontend dir
+* Place your raw riotkey in a file named ```.riotkey``` 
+	* Put this file in the root of the backend directory
+
+
 ## D3 - Inspirations
 
 ### Calendar viewing
