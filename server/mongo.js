@@ -3,6 +3,8 @@ var mongodb = require('mongodb').MongoClient,
 	assert = require('assert');
 require('dotenv').load();
 
+
+
 mongoose.connect(process.env.DB_CONNECT);
 
 
