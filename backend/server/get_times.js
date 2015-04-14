@@ -6,9 +6,10 @@ var dotenv   = require('dotenv'), // used for keys -> get from .env
 var PythonShell = require('python-shell');
 
 var arguments = process.argv.slice(2);
+// console.log(arguments[0])
 
 function push_data_to_mongo (player) {
-	var Data = db.dataInit('gametimes'));
+	var Data = db.dataInit('games');
     var options = {
 		  scriptPath: 'api_requests',
 		  args: [player, 'get_recent_games']
@@ -18,7 +19,7 @@ function push_data_to_mongo (player) {
 		if (err) throw err;
 		
 		data = JSON.parse(times);
-		// console.log(data)
+		console.log(data)
 		for (var key in data) {
 		    var entry = data[key];
 		    Data.create(entry, function(err,doc){
@@ -32,17 +33,17 @@ function push_data_to_mongo (player) {
 }
 
 function push_name_to_mongo (player) {
-	var Data = db.dataInit('gametimes'));
+	var Data = db.dataInit('summoners');
     var options = {
 		  scriptPath: 'api_requests',
-		  args: [player, 'get_recent_games']
+		  args: [player, 'get_summoner_formated']
 	};
 	
 	PythonShell.run('data.py', options, function (err, times) {
 		if (err) throw err;
 		
 		data = JSON.parse(times);
-		// console.log(data)
+		console.log(data)
 		for (var key in data) {
 		    var entry = data[key];
 		    Data.create(entry, function(err,doc){
@@ -84,6 +85,7 @@ if (arguments == "mass") {
 	// console.log(db.DB_collections());
 	// setTimeout(function(){ console.log('Entry Finished.'); db.DB_close(); }, 500);
 } else { // Otherwise, just update the player given
-	push_to_mongo(arguments);
+	push_name_to_mongo(arguments[0]);
+	push_data_to_mongo(arguments[0]);
 }
 

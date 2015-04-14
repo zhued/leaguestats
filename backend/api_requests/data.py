@@ -52,11 +52,13 @@ def get_summoner(summoner_name):
 def get_summoner_formated(summoner_name):
   wait()
   s = w.get_summoner(name=summoner_name)
+  what = []
   sum_id = s['id']
   sum_name = s['name']
   formatJSON = '{"_id":{ "oid": %d}, "summoner_name": "%s"}' % (sum_id,sum_name)
-  formated = json.loads(formatJSON)
-  return formated
+  formatted = json.loads(formatJSON)
+  what.append(formatted)
+  return what
 
 def get_match_history(summoner):
   wait()
