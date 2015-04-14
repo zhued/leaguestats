@@ -7,6 +7,29 @@ var PythonShell = require('python-shell');
 
 var arguments = process.argv.slice(2);
 
+function push_to_mongo (player) {
+	var Data = db.dataInit(String(player));
+    var options = {
+		  scriptPath: 'api_requests',
+		  args: [player, 'get_recent_games']
+	};
+	
+	PythonShell.run('data.py', options, function (err, times) {
+		if (err) throw err;
+		
+		data = JSON.parse(times);
+		// console.log(data)
+		for (var key in data) {
+		    var entry = data[key];
+		    Data.create(entry, function(err,doc){
+				// if(err) throw err;
+				// not throwing error because data will overlap, which is fine
+			})
+		}
+		setTimeout(function(){ console.log(player +' Finished.'); db.DB_close(); }, 5000);
+	})
+}
+
 	
 // Keyword mass will run a mass update on all existing players in database
 if (arguments == "mass") {
@@ -19,28 +42,8 @@ if (arguments == "mass") {
 		        names.forEach(function(arrayItem){
 		        	arrayItem = arrayItem.name.substring(12)
 		        	// if (!(arrayItem == "system.indexes" || arrayItem == "test" || arrayItem == "datas")) {
-		        		if (arrayItem == "dualife" || arrayItem == "somepanda" || arrayItem == "imaqtpie") {
-		        		var Data = db.dataInit(arrayItem);
-
-				        var options = {
-							  scriptPath: 'api_requests',
-							  args: [arrayItem, 'get_recent_games']
-						};
-
-						PythonShell.run('data.py', options, function (err, times) {
-							if (err) throw err;
-							
-							data = JSON.parse(times);
-							// console.log(data)
-							for (var key in data) {
-							    var entry = data[key];
-							    Data.create(entry, function(err,doc){
-									// if(err) throw err;
-									// not throwing error because data will overlap, which is fine
-								})
-							}
-							setTimeout(function(){ console.log(arrayItem +' Finished.'); db.DB_close(); }, 5000);
-						})
+	        		if (arrayItem == "dualife" || arrayItem == "somepanda" || arrayItem == "imaqtpie") {
+		        		push_to_mongo(arrayItem);
 		        	}
 		        })
 	    	}
@@ -50,27 +53,6 @@ if (arguments == "mass") {
 	// console.log(db.DB_collections());
 	// setTimeout(function(){ console.log('Entry Finished.'); db.DB_close(); }, 500);
 } else { // Otherwise, just update the player given
-
-	var Data = db.dataInit(arguments[0]);
-	// var Data = db.dataInit('test');
-
-	var options = {
-	  scriptPath: 'api_requests',
-	  args: [arguments[0], 'get_recent_games']
-	};
-	 
-	PythonShell.run('data.py', options, function (err, times) {
-		if (err) throw err;
-		data = JSON.parse(times);
-		for (var key in data) {
-		    var entry = data[key];
-		    Data.create(entry, function(err,doc){
-				// if(err) throw err;
-				// not throwing error because data will overlap, which is fine
-			})
-		}
-		
-		setTimeout(function(){ console.log('Entry Finished.'); db.DB_close(); }, 500);
-	});
+	push_to_mongo(arguments);
 }
 
