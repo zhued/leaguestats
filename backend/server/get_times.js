@@ -26,7 +26,8 @@ function push_to_mongo (player) {
 				// not throwing error because data will overlap, which is fine
 			})
 		}
-		setTimeout(function(){ console.log(player +' Finished.'); db.DB_close(); }, 5000);
+		console.log(player + " Finished.")
+		// setTimeout(function(){ console.log(player +' Finished.'); db.DB_close(); }, 5000);
 	})
 }
 
@@ -48,7 +49,7 @@ if (arguments == "mass") {
 							console.log("Processing: " + arrayItem)
 			        		push_to_mongo(arrayItem);
 			        	}
-						setTimeout(next, 1000)
+						setTimeout(next, 3000)
 					}
 				}
 				next()
