@@ -39,13 +39,19 @@ if (arguments == "mass") {
 	    	if (err) {
 	    		throw err
 	    	} else {
-		        names.forEach(function(arrayItem){
-		        	arrayItem = arrayItem.name.substring(12)
-		        	// if (!(arrayItem == "system.indexes" || arrayItem == "test" || arrayItem == "datas")) {
-	        		if (arrayItem == "dualife" || arrayItem == "somepanda" || arrayItem == "imaqtpie") {
-		        		push_to_mongo(arrayItem);
-		        	}
-		        })
+	    		var limit = names.length;
+	    		var counter = 0;
+				function next(){
+					if(counter++ < limit) {
+						var arrayItem = names[counter-1].name.substring(12)
+						if (!(arrayItem == "system.indexes" || arrayItem == "test" || arrayItem == "datas")) {
+							console.log("Processing: " + arrayItem)
+			        		push_to_mongo(arrayItem);
+			        	}
+						setTimeout(next, 1000)
+					}
+				}
+				next()
 	    	}
 	    });
     });
