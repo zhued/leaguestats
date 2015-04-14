@@ -7,8 +7,32 @@ var PythonShell = require('python-shell');
 
 var arguments = process.argv.slice(2);
 
-function push_to_mongo (player) {
-	var Data = db.dataInit(String(player));
+function push_data_to_mongo (player) {
+	var Data = db.dataInit('gametimes'));
+    var options = {
+		  scriptPath: 'api_requests',
+		  args: [player, 'get_recent_games']
+	};
+	
+	PythonShell.run('data.py', options, function (err, times) {
+		if (err) throw err;
+		
+		data = JSON.parse(times);
+		// console.log(data)
+		for (var key in data) {
+		    var entry = data[key];
+		    Data.create(entry, function(err,doc){
+				// if(err) throw err;
+				// not throwing error because data will overlap, which is fine
+			})
+		}
+		console.log(player + " Finished.")
+		// setTimeout(function(){ console.log(player +' Finished.'); db.DB_close(); }, 5000);
+	})
+}
+
+function push_name_to_mongo (player) {
+	var Data = db.dataInit('gametimes'));
     var options = {
 		  scriptPath: 'api_requests',
 		  args: [player, 'get_recent_games']
