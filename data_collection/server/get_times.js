@@ -83,6 +83,6 @@ if (arguments == "mass") {
 } else { // Otherwise, just update the player given
 	push_name_to_mongo(arguments[0]);
 	push_data_to_mongo(arguments[0]);
-	setTimeout(function(){ console.log('Finished.'); db.DB_close(); }, 3000);
+	setTimeout(function(){ console.log('Finished.'); db.DB_close(); }, 4000);
 }
 
