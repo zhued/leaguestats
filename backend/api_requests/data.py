@@ -49,6 +49,17 @@ def get_summoner(summoner_name):
   s = w.get_summoner(name=summoner_name)
   return s
 
+def get_summoner_formated(summoner_name):
+  wait()
+  s = w.get_summoner(name=summoner_name)
+  what = []
+  sum_id = s['id']
+  sum_name = s['name']
+  formatJSON = '{"_id":{ "oid": %d}, "summoner_id": %d, "summoner_name": "%s"}' % (sum_id,sum_id,sum_name)
+  formatted = json.loads(formatJSON)
+  what.append(formatted)
+  return what
+
 def get_match_history(summoner):
   wait()
   ms = w.get_match_history(summoner['id'])
@@ -169,19 +180,16 @@ def get_recent_games(summoner):
   wait()
   total = []
   gamedata = w.get_recent_games(summoner['id'])
+  summoner_id = summoner['id']
   for i in xrange(0,len(gamedata['games'])):
     gameid = gamedata['games'][i]['gameId']
     gameEnd = gamedata['games'][i]['createDate']
     timePlayed = gamedata['games'][i]['stats']['timePlayed']
-    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d }' % (gameid,gameEnd,timePlayed)
+    game_sum_id = int(str(gameid) + str(summoner_id))
+    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d, "summoner_id": %d, "game_id": %d}' % (game_sum_id,gameEnd,timePlayed,summoner_id,gameid)
     j = json.loads(formatJSON)
     total.append(j)
-  # gameid = gamedata['games'][i]['gameId']
-  # gameEnd = gamedata['games'][i]['createDate']
-  # timePlayed = gamedata['games'][i]['stats']['timePlayed']
-  # format = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d }' % (gameid,gameEnd,timePlayed)
   return total
-  # return format
 
 
 # **********
@@ -206,35 +214,38 @@ def main():
   if arg == 'get_summoner':
     summoner = get_summoner(summoner_name)
     print(to_json(summoner))
-  elif arg == 'get_match_history':
-    summoner = get_summoner(summoner_name)
-    matchHistory = get_match_history(summoner)
-    print(to_json(matchHistory))
-  elif arg == 'get_average_creep_per_minute_deltas':
-    summoner = get_summoner(summoner_name)
-    average = get_average_creep_per_minute_deltas(summoner)
-    print average
-  elif arg == 'get_average_gold_per_minute_deltas':
-    summoner = get_summoner(summoner_name)
-    average = get_average_gold_per_minute_deltas(summoner)
-    print average
-  elif arg == 'get_average_xp_per_minute_deltas':
-    summoner = get_summoner(summoner_name)
-    average = get_average_xp_per_minute_deltas(summoner)
-    print average
-  elif arg == 'get_average_kda_per_game':
-    summoner = get_summoner(summoner_name)
-    average = get_average_kda_per_game(summoner)
-    print average
-  elif arg == 'get_average_stats':
-    summoner = get_summoner(summoner_name)
-    averages = get_average_stats(summoner)
-    print (to_json(averages))
   elif arg == 'get_recent_games':
     summoner = get_summoner(summoner_name)
     matchHistory = get_recent_games(summoner)
-    # j = json.loads(matchHistory)
     print(to_json(matchHistory))
+  elif arg == 'get_summoner_formated':
+    summoner = get_summoner_formated(summoner_name)
+    print(to_json(summoner))
+  # elif arg == 'get_match_history':
+  #   summoner = get_summoner(summoner_name)
+  #   matchHistory = get_match_history(summoner)
+  #   print(to_json(matchHistory))
+  # elif arg == 'get_average_creep_per_minute_deltas':
+  #   summoner = get_summoner(summoner_name)
+  #   average = get_average_creep_per_minute_deltas(summoner)
+  #   print average
+  # elif arg == 'get_average_gold_per_minute_deltas':
+  #   summoner = get_summoner(summoner_name)
+  #   average = get_average_gold_per_minute_deltas(summoner)
+  #   print average
+  # elif arg == 'get_average_xp_per_minute_deltas':
+  #   summoner = get_summoner(summoner_name)
+  #   average = get_average_xp_per_minute_deltas(summoner)
+  #   print average
+  # elif arg == 'get_average_kda_per_game':
+  #   summoner = get_summoner(summoner_name)
+  #   average = get_average_kda_per_game(summoner)
+  #   print average
+  # elif arg == 'get_average_stats':
+  #   summoner = get_summoner(summoner_name)
+  #   averages = get_average_stats(summoner)
+  #   print (to_json(averages))
+
 # ************
 # Start of static data
 # ************
