@@ -9,8 +9,10 @@ angular.module('app').controller('HomeController', [
    // }).then(function(data){
    //  $scope.time_played = data.data;
    // });
+    $( "#datepicker" ).datepicker();
     $scope.list = [];
     $scope.text = "";
+    $scope.startDate=Date(0);
     $scope.submit = function() {
       if ($scope.text) {
         var querystring = ($scope.text).toLowerCase().replace(/ /g, '');
