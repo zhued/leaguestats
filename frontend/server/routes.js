@@ -15,7 +15,7 @@ module.exports = function(app){
 // Gets times for a certain summoner
 // ***
   app.get('/summoner/:summoner_name', function(req,res){
-  	summoners.find({ summoner_name:req.params.summoner_name }, function(err,doc){
+  	summoners.find({ summoner_short:req.params.summoner_name }, function(err,doc){
   		if(err) res.send(err);
       doc = JSON.stringify(doc);
       doc = JSON.parse(doc);

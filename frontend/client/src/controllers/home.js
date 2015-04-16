@@ -13,11 +13,10 @@ angular.module('app').controller('HomeController', [
     $scope.text = "";
     $scope.submit = function() {
       if ($scope.text) {
-        // $scope.list.push(this.text);
-        // $scope.text = '';
+        var querystring = ($scope.text).toLowerCase().replace(/ /g, '');
         $http({
         method: 'GET',
-        url: '/summoner/'+$scope.text
+        url: '/summoner/'+querystring
        }).then(function(data){
         $scope.time_played = data.data;
        });
