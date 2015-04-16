@@ -1,6 +1,6 @@
 var dotenv   = require('dotenv'), // used for keys -> get from .env
-  db     = require('../server/mongo.js');
-  mongoose = require('mongoose');
+  	db       = require('../server/mongo.js');
+  	mongoose = require('mongoose');
 
 var inputData = db.dataInit("games")
 var outputData = db.dataInit("games_processed")
@@ -197,7 +197,27 @@ inputData.find({}, function(err,games){
 		startHourNumber = startDate.getHours() + 1
 		endHourNumber = endDate.getHours() + 1
 
+		start = String(startDayNumber)+String(startHourNumber)
+		end = String(endDayNumber)+String(endHourNumber)
 		
+		// check if the game is over an hour long
+		check_game = endHourNumber - startHourNumber
+		if (check_game > 1 ) {
+			template[start].value += 1;
+			for (var i = 1; i < check_game; i++) {
+				console.log(i)
+				increment = String(startHourNumber + i)
+			};
+			template[end].value += 1;
+		} else if (check_game == -23) { // checking oen case => 24 to 1
+
+		} else if (check_game == -22) { // checking for 23 to 1 or 24 to 2
+
+		} else if (check_game == 0 | check_game == 1){
+			// template[start].value += 1;
+			// template[end].value += 1;
+		};
 	}
+	// console.log(template)
 })
 
