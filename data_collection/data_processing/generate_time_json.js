@@ -1,4 +1,4 @@
-var obj = {}
+var obj = []
 for(var i=1; i<=7; i++){
 	for(var j=1; j<=24; j++){
 		var key = String(i)+String(j)
