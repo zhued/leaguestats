@@ -55,7 +55,7 @@ def get_summoner_formated(summoner_name):
   what = []
   sum_id = s['id']
   sum_name = s['name']
-  formatJSON = '{"_id":{ "oid": %d}, "summoner_name": "%s"}' % (sum_id,sum_name)
+  formatJSON = '{"_id":{ "oid": %d}, "summoner_id": %d, "summoner_name": "%s"}' % (sum_id,sum_id,sum_name)
   formatted = json.loads(formatJSON)
   what.append(formatted)
   return what
@@ -185,15 +185,11 @@ def get_recent_games(summoner):
     gameid = gamedata['games'][i]['gameId']
     gameEnd = gamedata['games'][i]['createDate']
     timePlayed = gamedata['games'][i]['stats']['timePlayed']
-    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d, "summoner_id": %d}' % (gameid,gameEnd,timePlayed,summoner_id)
+    game_sum_id = int(str(gameid) + str(summoner_id))
+    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d, "summoner_id": %d, "game_id": %d}' % (game_sum_id,gameEnd,timePlayed,summoner_id,gameid)
     j = json.loads(formatJSON)
     total.append(j)
-  # gameid = gamedata['games'][i]['gameId']
-  # gameEnd = gamedata['games'][i]['createDate']
-  # timePlayed = gamedata['games'][i]['stats']['timePlayed']
-  # format = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d }' % (gameid,gameEnd,timePlayed)
   return total
-  # return format
 
 
 # **********
