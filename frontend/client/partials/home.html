@@ -9,7 +9,14 @@
 
 <p>Hello World</p>
 
-{{time_played}}
+<form ng-submit="submit()" ng-controller="HomeController">
+  Search:
+  <input type="text" ng-model="text" name="text" />
+  <input type="submit" id="submit" value="Submit" />
+  <pre>{{list}}</pre>
+  {{time_played}}
+</form>
+<!-- Search: <input type="text" my-on-key-down-call="callRestService()">    -->
 
 </body>
 </html>

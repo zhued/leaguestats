@@ -4,3 +4,4 @@ node_modules
 *.pyc
 *.log
 .DS_Store
+test.js
