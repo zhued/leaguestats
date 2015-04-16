@@ -9,7 +9,22 @@ angular.module('app').controller('HomeController', [
    // }).then(function(data){
    //  $scope.time_played = data.data;
    // });
-    $( "#datepicker" ).datepicker();
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
     $scope.list = [];
     $scope.text = "";
     $scope.startDate=Date(0);
