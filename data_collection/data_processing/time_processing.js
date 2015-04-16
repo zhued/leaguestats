@@ -1,12 +1,7 @@
 var dotenv   = require('dotenv'), // used for keys -> get from .env
-<<<<<<< HEAD
-  	db       = require('../server/mongo.js');
-  	mongoose = require('mongoose');
-=======
   db     = require('../server/mongo.js');
   mongoose = require('mongoose'),
   getTemplate = require('./getTemplate.js');
->>>>>>> 29d8d936038af5b43bdecaaeba7a57995800025b
 
 var inputData = db.dataInit("games")
 var outputData = db.dataInit("games_processed")
@@ -40,21 +35,25 @@ inputData.find({}, function(err,games){
 		// check if the game is over an hour long
 		check_game = endHourNumber - startHourNumber
 		if (check_game > 1 ) {
-			template[start].value += 1;
+			template[startKey].value += 0.5;
 			for (var i = 1; i < check_game; i++) {
-				console.log(i)
-				increment = String(startHourNumber + i)
+				increment = String(startHourNumber + 1)
+				incrementKey = String(startDayNumber)+String(increment)
+				template[incrementKey].value += 1;
 			};
-			template[end].value += 1;
-		} else if (check_game == -23) { // checking oen case => 24 to 1
-
-		} else if (check_game == -22) { // checking for 23 to 1 or 24 to 2
-
-		} else if (check_game == 0 | check_game == 1){
-			// template[startKey].value += 1;
-			// template[endKey].value += 1;
+			template[endKey].value += 0.5;
+		} else if (startHourNumber == 23 && endHourNumber == 1) { // checking for 23 to 1
+			template[startKey].value += 0.5;
+			template['24'].value += 1;
+			template[endKey].value += 0.5;
+		} else if (startHourNumber == 24 && endHourNumber == 2) { // checking for 24 to 2
+			template[startKey].value += 0.5;
+			template['1'].value += 1;
+			template[endKey].value += 0.5;
+		} else if (check_game == 0 | check_game == 1 | check_game == -23){
+			template[startKey].value += 1;
+			template[endKey].value += 1;
 		};
 	}
-	// console.log(template)
 })
 
