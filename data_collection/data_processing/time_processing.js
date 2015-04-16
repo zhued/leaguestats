@@ -29,12 +29,31 @@ inputData.find({}, function(err,games){
 		startHourNumber = startDate.getHours() + 1
 		endHourNumber = endDate.getHours() + 1
 
-		startKey = String(startDayNumber) + String(startHourNumber)
-		endKey = String(endDayNumber) + String(endDayNumber)
-
-		template[startKey].value = template[startKey].value + 1
-		template[endKey].value = template[endKey].value + 1
+		startKey = String(startDayNumber)+String(startHourNumber)
+		endKey = String(endDayNumber)+String(endHourNumber)
+		
+		// check if the game is over an hour long
+		check_game = endHourNumber - startHourNumber
+		if (check_game > 1 ) {
+			template[startKey].value += 0.5;
+			for (var i = 1; i < check_game; i++) {
+				increment = String(startHourNumber + 1)
+				incrementKey = String(startDayNumber)+String(increment)
+				template[incrementKey].value += 1;
+			};
+			template[endKey].value += 0.5;
+		} else if (startHourNumber == 23 && endHourNumber == 1) { // checking for 23 to 1
+			template[startKey].value += 0.5;
+			template['24'].value += 1;
+			template[endKey].value += 0.5;
+		} else if (startHourNumber == 24 && endHourNumber == 2) { // checking for 24 to 2
+			template[startKey].value += 0.5;
+			template['1'].value += 1;
+			template[endKey].value += 0.5;
+		} else if (check_game == 0 | check_game == 1 | check_game == -23){
+			template[startKey].value += 1;
+			template[endKey].value += 1;
+		};
 	}
-	console.log(template)
 })
 

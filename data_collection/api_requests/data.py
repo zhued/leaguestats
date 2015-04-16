@@ -55,7 +55,7 @@ def get_summoner_formated(summoner_name):
   what = []
   sum_id = s['id']
   sum_name = s['name']
-  formatJSON = '{"_id":{ "oid": %d}, "summoner_id": %d, "summoner_name": "%s"}' % (sum_id,sum_id,sum_name)
+  formatJSON = '{"_id":{ "oid": %d}, "summoner_id": %d, "summoner_name": "%s", "summoner_short": "%s"}' % (sum_id,sum_id,sum_name,summoner_name)
   formatted = json.loads(formatJSON)
   what.append(formatted)
   return what
