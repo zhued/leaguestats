@@ -13,10 +13,10 @@
   Search:
   <input type="text" ng-model="text" name="text" />
   <label for="from">From</label>
-  <input type="text" id="from" name="from">
+  <input type="text" id="from" ng-model="date" jdatepicker>
   <label for="to">to</label>
   <input type="text" id="to" name="to">
-  <input type="submit" id="submit" value="Submit" />
+  <input type="submit" id="submit" ng-model="endDate" value="Submit" />
   {{time_played}}
   {{startDate}}
 </form>

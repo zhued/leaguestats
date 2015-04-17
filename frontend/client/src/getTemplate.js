@@ -171,5 +171,3 @@ function getTemplate(){
 	}
 	return template
 }
-
-exports.getTemplate = getTemplate
