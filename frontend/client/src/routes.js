@@ -1,4 +1,4 @@
-angular.module('app').config([
+angular.module('leaguestats-ui').config([
   '$stateProvider',
   '$locationProvider',
 

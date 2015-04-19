@@ -1,4 +1,4 @@
-angular.module('app').controller('HomeController', [
+angular.module('leaguestats-ui').controller('HomeController', [
   '$scope',
   '$http',
 
@@ -10,13 +10,14 @@ angular.module('app').controller('HomeController', [
    // }).then(function(data){
    //  $scope.time_played = data.data;
    // });
- 
+
     $scope.startDate
 
 
     $scope.list = [];
     $scope.text = "";
     $scope.submit = function() {
+      console.log('hi');
       if ($scope.text) {
         var querystring = ($scope.text).toLowerCase().replace(/ /g, '');
         $http({
@@ -48,7 +49,7 @@ angular.module('app').controller('HomeController', [
           endKey = String(endDayNumber)+String(endHourNumber)
 
           console.log(template[startKey])
-          
+
           // check if the game is over an hour long
           check_game = endHourNumber - startHourNumber
           if (check_game > 1 ) {
@@ -75,7 +76,7 @@ angular.module('app').controller('HomeController', [
         $scope.time_played = template;
         // console.log(template)
        });
-      
+
       }
     };
   }
