@@ -191,6 +191,38 @@ def get_recent_games(summoner):
     total.append(j)
   return total
 
+# ***********************
+#    times of ALL ranked games
+# ***********************
+def ranked_indexed(summoner, total, beginIndex, endIndex):
+  wait()
+  cont = 1
+  summoner_id = summoner['id']
+  ms = w.get_match_history(summoner['id'], None, None, None, beginIndex, endIndex)
+  if not ms:
+      return 0, total
+  elif len(ms['matches']) < 15:
+      cont = 0
+
+  for i in xrange(0,len(ms['matches'])):
+    gameid = ms['matches'][i]['matchId']
+    timePlayed = ms['matches'][i]['matchDuration']
+    gameEnd = ms['matches'][i]['matchCreation'] + (ms['matches'][i]['matchDuration'])*1000 + 300000
+    game_sum_id = int(str(gameid) + str(summoner_id))
+    formatJSON = '{"_id":{ "oid": %d}, "gameEndtime": %d, "timePlayed": %d, "summoner_id": %d, "game_id": %d}' % (game_sum_id,gameEnd,timePlayed,summoner_id,gameid)
+    j = json.loads(formatJSON)
+    total.append(j)
+  return cont, total
+
+def get_all_ranked(summoner, beginIndex, endIndex):
+  total = []
+  cont = 1
+  while cont == 1:
+    beginIndex += 15
+    endIndex += 15
+    ret = ranked_indexed(summoner, total, beginIndex, endIndex)
+    cont = ret[0]
+  return total
 
 # **********
 # STATIC DATA
@@ -221,6 +253,10 @@ def main():
   elif arg == 'get_summoner_formated':
     summoner = get_summoner_formated(summoner_name)
     print(to_json(summoner))
+  elif arg == 'get_all_ranked':
+    summoner = get_summoner(summoner_name)
+    matchHistory = get_all_ranked(summoner, 0, 15)
+    print(to_json(matchHistory))
   # elif arg == 'get_match_history':
   #   summoner = get_summoner(summoner_name)
   #   matchHistory = get_match_history(summoner)
