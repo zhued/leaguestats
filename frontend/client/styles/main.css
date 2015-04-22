@@ -3,8 +3,8 @@ body, html { height: 100%; }
 .full-h { height: 100%; }
 
 #gameTable {
-  height: 33%;
   overflow: scroll;
+  height: 500px;
 }
 
 rect.bordered {

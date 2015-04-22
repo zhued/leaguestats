@@ -1,4 +1,5 @@
 var db     = require('./mongo.js'),
+timeParser = require('./timeParse.js');
 games      = db.dataInit('games'),
 summoners  = db.dataInit('summoners');
 
@@ -18,10 +19,29 @@ module.exports = function(app){
   		if(err) res.send(err);
       doc = JSON.stringify(doc);
       doc = JSON.parse(doc);
-      games.find({ summoner_id:doc[0].summoner_id }, function(err,doc){
+      games.find({ summoner_id:doc[0].summoner_id }, function(err,games){
         if(err) res.send(err);
-        res.status(200).send(doc)
-      })
-  	})
+        res.send(games);
+      });
+  	});
   });
+
+  app.get('/timedata/:summoner_name', function(req, res) {
+    summoners.find({ summoner_short:req.params.summoner_name }, function(err,doc){
+  		if(err) res.send(err);
+      doc = JSON.stringify(doc);
+      doc = JSON.parse(doc);
+      games.find({ summoner_id:doc[0].summoner_id }, function(err,games){
+        if(err) { res.send(err); } else {
+          var times = timeParser.parse(games);
+          var tsv = 'day\thour\tvalue\n';
+          for(var timeCode in times) {
+            tsv += times[timeCode].day+'\t'+times[timeCode].hour+'\t'+10*Math.random()+'\n';
+          }
+          res.format({'text/plain': function() { res.send(tsv); }});
+        }
+      });
+  	});
+  });
+
 };

@@ -23,19 +23,22 @@
     </form>
 
     <div ng-show="ui.response">
-      <h3>Games for Summoner: {{ui.summoner}}</h3>
-      <table class="table" id="gameTable">
-        <tr>
-          <th>Time Played</th><th>End Time</th><th>Game ID</th>
-        </tr>
-        <tr ng-repeat="item in ui.resData">
-          <td>{{item.timePlayed}}</td>
-          <td>{{item.gameEndtime}}</td>
-          <td>{{item.game_id}}</td>
-        </tr>
-      </table>
 
+      <h3>Games for Summoner: {{ui.summoner}}</h3>
       <div id="chart"></div>
+      <div id="gameTable">
+        <table class="table">
+          <tr>
+            <th>Time Played</th><th>End Time</th><th>Game ID</th>
+          </tr>
+          <tr ng-repeat="item in ui.resData">
+            <td>{{item.timePlayed}}</td>
+            <td>{{item.gameEndtime}}</td>
+            <td>{{item.game_id}}</td>
+          </tr>
+        </table>
+      </div>
+
     </div>
 
 <!-- Search: <input type="text" my-on-key-down-call="callRestService()">    -->
