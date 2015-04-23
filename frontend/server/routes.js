@@ -33,7 +33,6 @@ module.exports = function(app){
       doc = JSON.parse(doc);
       games.find({ summoner_id:doc[0].summoner_id }, function(err,games){
         if(err) { res.send(err); } else {
-          console.log(games);
           var times = timeParser.parse(JSON.stringify(games));
           var tsv = 'day\thour\tvalue\n';
           for(var timeCode in times) {

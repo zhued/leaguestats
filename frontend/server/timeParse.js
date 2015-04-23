@@ -170,9 +170,11 @@ var template = {
 }
 
 exports.parse = function(data) {
+
 	var games = JSON.parse(data);
+
 	games.forEach(function(game) {
-		console.log(Object.keys(game));
+
 		timePlayed = game.timePlayed;
 		gameEndtime = game.gameEndtime;
 		summonerId = game.summoner_id;
