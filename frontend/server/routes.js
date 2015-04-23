@@ -33,10 +33,11 @@ module.exports = function(app){
       doc = JSON.parse(doc);
       games.find({ summoner_id:doc[0].summoner_id }, function(err,games){
         if(err) { res.send(err); } else {
-          var times = timeParser.parse(games);
+          console.log(games);
+          var times = timeParser.parse(JSON.stringify(games));
           var tsv = 'day\thour\tvalue\n';
           for(var timeCode in times) {
-            tsv += times[timeCode].day+'\t'+times[timeCode].hour+'\t'+10*Math.random()+'\n';
+            tsv += times[timeCode].day+'\t'+times[timeCode].hour+'\t'+times[timeCode].value+'\n';
           }
           res.format({'text/plain': function() { res.send(tsv); }});
         }

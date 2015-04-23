@@ -169,9 +169,10 @@ var template = {
 	  '724': { day: 7, hour: 24, value: 0 }
 }
 
-exports.parse = function(games) {
+exports.parse = function(data) {
+	var games = JSON.parse(data);
 	games.forEach(function(game) {
-
+		console.log(Object.keys(game));
 		timePlayed = game.timePlayed;
 		gameEndtime = game.gameEndtime;
 		summonerId = game.summoner_id;
