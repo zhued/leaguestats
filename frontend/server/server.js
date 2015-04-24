@@ -1,34 +1,29 @@
 var express     = require('express'),
     bodyParser  = require('body-parser'),
     routes      = require('./routes'),
-    http        = require('http'),
-    fs          = require('fs');
+    path        = require('path');
 
+var app = express();
 
-fs.realpath(__dirname + '/../', function (err, projectRoot) {
-    var app = express(); // Make app using Express framework
-    app.set('port', process.env.PORT || 3000);
-    app.set('env', process.env.NODE_ENV || 'development');
+var http = require('http').Server(app);
 
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
+app.use(express.static('client'));
 
-    routes(app);
-    
-    app.set('views', projectRoot + '/server/views');
-    app.set('view engine', 'jade');
-    app.use(require('serve-static')(projectRoot + '/client/vendor'));
-    app.use(require('serve-static')(projectRoot + '/client/src'));
-    app.use(require('serve-static')(projectRoot + '/client/partials'));
-    app.use(require('serve-static')(projectRoot + '/client/styles'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.set('port', process.env.PORT || 3000);
+app.set('env', process.env.NODE_ENV || 'development');
 
-    var server = http.createServer(app);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-  server.listen(app.get('port'), function(){
-    console.log("Listening on port " + app.get('port') + " in "+ app.get('env') + " mode");
-    console.log(projectRoot);
-  });
+routes(app);
+
+http.listen(app.get('port'), function(){
+  console.log("Listening on port " + app.get('port') + " in "+ app.get('env') + " mode");
+});
 
 module.exports = app;
-});
