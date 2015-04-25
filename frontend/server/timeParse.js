@@ -1,4 +1,5 @@
-var template = {
+var newTemplate = function() {
+	return {
 	  '11': { day: 1, hour: 1, value: 0 },
 	  '12': { day: 1, hour: 2, value: 0 },
 	  '13': { day: 1, hour: 3, value: 0 },
@@ -167,11 +168,13 @@ var template = {
 	  '722': { day: 7, hour: 22, value: 0 },
 	  '723': { day: 7, hour: 23, value: 0 },
 	  '724': { day: 7, hour: 24, value: 0 }
-}
+	};
+};
 
 exports.parse = function(data) {
 
 	var games = JSON.parse(data);
+	var template = newTemplate();
 
 	games.forEach(function(game) {
 
