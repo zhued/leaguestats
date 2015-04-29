@@ -9,7 +9,7 @@
 </head>
 <body>
   <div ng-controller="HomeController as ui" class="container full-h">
-    <h1>LeagueStats {{ui.summoner ? "for Player "+ui.summoner : ""}}</h1>
+    <h1 style="margin-bottom:20px">LeagueStats {{ui.summoner ? "for Player "+ui.summoner : ""}}</h1>
     <form ng-submit="ui.getSummoner()" class="form-inline">
       <div class="form-group">
         <label for="name">Summoner ID: </label>
