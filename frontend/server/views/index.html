@@ -9,24 +9,35 @@
 </head>
 <body>
   <div ng-controller="HomeController as ui" class="container full-h">
-    <h1>LeagueStats</h1>
-    <form ng-submit="ui.getSummoner()">
-      Search:
-      <input type="text" ng-model="ui.summonerName" name="text" />
-      <label for="from">From</label>
-      <input type="text" id="from" ng-model="date" jdatepicker>
-      <label for="to">to</label>
-      <input type="text" id="to" name="to">
-      <input type="submit" id="submit" ng-model="endDate" value="Submit"/>
-      {{time_played}}
-      {{startDate}}
+    <h1>LeagueStats {{ui.summoner ? "for Player "+ui.summoner : ""}}</h1>
+    <form ng-submit="ui.getSummoner()" class="form-inline">
+      <div class="form-group">
+        <label for="name">Summoner ID: </label>
+        <input id="name" type="text" class="form-control" ng-model="ui.summonerName"/>
+      </di>
+      <button type="submit" class="btn btn-default">Search</button>
     </form>
 
     <div ng-show="ui.response">
 
-      <h3>Games for Summoner: {{ui.summoner}}</h3>
       <div id="chart"></div>
-      <div id="gameTable">
+
+      <form ng-submit="ui.dateFilter()" class="form-inline" style="margin-bottom: 20px">
+        <div class="form-group">
+          <label for="from">Filter Dates From: </label>
+          <input id="from" type="date" class="form-control" ng-model="ui.fromDate"/>
+        </div>
+        <div class="form-group">
+          <label for="to">To: </label>
+          <input id="to" type="date" class="form-control" ng-model="ui.toDate"/>
+        </div>
+        <button type="submit" class="btn btn-default">Filter</button>
+        <a href="#gameTable">
+          <button class="btn btn-default" ng-click="ui.showTable=!ui.showTable" style="float: right">{{ui.showTable ? "Hide" : "Show"}} Table View</button>
+        </a>
+      </form>
+
+      <div id="gameTable" ng-show="ui.showTable">
         <table class="table">
           <tr>
             <th>Time Played</th><th>End Time</th><th>Game ID</th>
