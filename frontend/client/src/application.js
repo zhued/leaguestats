@@ -345,6 +345,7 @@ app.controller('HomeController', ['$http', function($http) {
       .attr("class", "mono")
       .text(function(d) { return "≥ " + Math.round(d); })
       .attr("x", function(d, i) { return legendElementWidth * i; })
+      .attr("y", height + gridSize);
 
   }
 

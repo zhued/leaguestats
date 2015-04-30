@@ -1,5 +1,5 @@
 var db     = require('./mongo.js'),
-timeParser = require('./timeParse.js');
+// timeParser = require('./timeParse.js');
 games      = db.dataInit('games'),
 summoners  = db.dataInit('summoners');
 
