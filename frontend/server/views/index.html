@@ -32,12 +32,9 @@
           <input id="to" type="date" class="form-control" ng-model="ui.toDate"/>
         </div>
         <button type="submit" class="btn btn-default">Filter</button>
-        <a href="#gameTable">
-          <button class="btn btn-default" ng-click="ui.showTable=!ui.showTable" style="float: right">{{ui.showTable ? "Hide" : "Show"}} Table View</button>
-        </a>
       </form>
 
-      <div id="gameTable" ng-show="ui.showTable">
+      <div id="gameTable">
         <table class="table">
           <tr>
             <th>Time Played</th><th>End Time</th><th>Game ID</th>

@@ -29,13 +29,4 @@ var cachedGames = [];
   	});
   });
 
-  app.get('/timedata/:summoner_name', function(req, res) {
-    var times = timeParser.parse(JSON.stringify(cachedGames));
-    var tsv = 'day\thour\tvalue\n';
-    for(var timeCode in times) {
-      tsv += times[timeCode].day+'\t'+times[timeCode].hour+'\t'+times[timeCode].value+'\n';
-    }
-    res.format({'text/plain': function() { res.send(tsv); }});
-  });
-
 };
