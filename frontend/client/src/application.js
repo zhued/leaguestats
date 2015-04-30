@@ -13,7 +13,6 @@ app.controller('HomeController', ['$http', function($http) {
       var querystring = (ui.summonerName).toLowerCase().replace(/ /g, '');
       $http.get('/summoner/'+querystring).success(function(data) {
         ui.resData = data;
-        console.log(ui.resData);
         ui.timeData = timeParse(data);
         ui.summoner = data[0].summoner_id;
         drawCal();
@@ -31,10 +30,8 @@ app.controller('HomeController', ['$http', function($http) {
     } else {
       var newGames = [];
       ui.resData.forEach(function(game) {
-        console.log('start: '+start+'\tend: '+end+'\tgame: '+game.gameEndtime);
         if(game.gameEndtime >= start && game.gameEndtime <= end) {
           newGames.push(game);
-          console.log(game);
         }
       });
       ui.resData = newGames;
